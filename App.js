@@ -30,10 +30,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const App = () =>  {
 
 
-  const [tasks, setTask] = React.useState([
-    {id:1, task: 'Primera Tarea ', completed: false},
-    {id:2, task: 'Segunda Tarea ', completed: false},
-  ]);
+  const [tasks, setTask] = React.useState([]);
 
   
   const [textInput, setTextInput] = React.useState('');
