@@ -29,13 +29,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //Cuerpo de la pagina
 const App = () =>  {
 
-
+  {/*Objeto donde se renderizan las tareas*/}
   const [tasks, setTask] = React.useState([]);
 
-  
+
+  {/*Obtener el valor del input*/}
   const [textInput, setTextInput] = React.useState('');
 
 
+  {/*Configuracion del AsynStorage*/}
   React.useEffect(() => {
     getTaskFromUserDevice();
   }, []);
@@ -45,6 +47,7 @@ const App = () =>  {
   }, [tasks]);
 
 
+  {/*Guardar los datos mediante el arreglo y su objeto Tasks*/}
   const saveTaskToUserDevice = async tasks => {
     try {
       const stringifytasks = JSON.stringify(tasks);
@@ -54,6 +57,8 @@ const App = () =>  {
     }
   };
 
+
+  {/*Obtener los datos del arreglo*/}
   const getTaskFromUserDevice = async () => {
     try {
       const tasks = await AsyncStorage.getItem('tasks');
@@ -66,6 +71,11 @@ const App = () =>  {
   };
 
 
+  {/*Funcionalidad del proyecto*/}
+
+
+
+  {/*Obtiene los datos y lo renderiza mediante el arreglo*/}
   const ListItem = ({task}) => {
     return <View style={styles.listTask}> 
              <View style={{flex:1}}>
@@ -82,13 +92,15 @@ const App = () =>  {
             }
            
             <TouchableOpacity style={styles.actionButton} onPress={() => deleteTask(task.id)}>
-               <Icon name="delete" style={{color:'white'}} size={20} />
+                <Icon name="delete" style={{color:'white'}} size={20} />
             </TouchableOpacity>
        </View>
   };
 
 
 
+
+  {/*Agregar una nueva tarea*/}
   const AddTask = () => {
      
      if(textInput == '')
@@ -110,6 +122,7 @@ const App = () =>  {
 
 
  
+{/*Marcar como completado*/}
 const markTaskComplete = taskId => {
   const newTaskItem = tasks.map(item => {
     if (item.id == taskId) {
@@ -122,12 +135,16 @@ const markTaskComplete = taskId => {
 };
 
 
+
+{/*Eliminar tarea*/}
 const deleteTask = taskId => {
   const newTaskItem = tasks.filter(item => item.id != taskId);
   setTask(newTaskItem);
 };
 
 
+
+  {/*UI*/}
   return <SafeAreaView style={styles.container}>
     
 
@@ -145,11 +162,11 @@ const deleteTask = taskId => {
 
 
       <View style={styles.footer}>
-        <View style={styles.footer_input}>
+         <View style={styles.footer_input}>
               <TextInput placeholder="Add New Task" 
                          onChangeText={(text) => setTextInput(text)}
                          value={textInput}/>
-           </View>
+            </View>
          <TouchableOpacity onPress={AddTask}> 
             <View style={styles.addTask}>
               <Icon name="add" size={30} style={styles.iconButtonTask} />
